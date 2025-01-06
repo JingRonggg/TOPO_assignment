@@ -1,0 +1,56 @@
+from flask import Flask
+from models import db
+from config import config
+from repositories.company_repository import CompanyRepository
+from services.data_loader_service import DataLoaderService
+from services.csv_loader_service import CSVLoaderService
+from routes.company_routes import company_blueprint, CompanyController
+from repositories.member_activity_repository import MemberActivityRepository
+from routes.member_activity_routes import member_activity_blueprint, MemberActivityController
+import json
+
+def create_app(config_name='default'):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    
+    db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
+        
+        company_repository = CompanyRepository(db)
+        
+        data_loader_service = DataLoaderService(company_repository, db)
+        csv_loader_service = CSVLoaderService(db)
+        
+        company_controller = CompanyController(company_repository)
+        company_controller.register_routes(company_blueprint)
+        
+        member_activity_repository = MemberActivityRepository(db)
+        member_activity_controller = MemberActivityController(member_activity_repository)
+        member_activity_controller.register_routes(member_activity_blueprint)
+        
+        app.register_blueprint(company_blueprint, url_prefix='/api/companies')
+        app.register_blueprint(member_activity_blueprint, url_prefix='/api/activities')
+        
+        try:
+            with open('datasets/dataset1.json', 'r') as file:
+                data = json.load(file)
+                data_loader_service.load_json_data(data)
+        except FileNotFoundError:
+            app.logger.warning('JSON dataset not found')
+        except Exception as e:
+            app.logger.error(f'Error loading JSON data: {str(e)}')
+
+        try:
+            csv_loader_service.load_csv_data('datasets/dataset2.csv')
+        except FileNotFoundError:
+            app.logger.warning('CSV dataset not found')
+        except Exception as e:
+            app.logger.error(f'Error loading CSV data: {str(e)}')
+
+    return app
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run()
