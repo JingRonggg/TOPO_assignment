@@ -26,7 +26,7 @@ const PdfDataView = ({ data }) => {
             <TableRow key={performance.id}>
               <TableCell>{performance.year}</TableCell>
               <TableCell>{performance.quarter}</TableCell>
-              <TableCell>${performance.revenue.toLocaleString()}</TableCell>
+              <TableCell>${performance.revenue}</TableCell>
               <TableCell>{performance.memberships_sold}</TableCell>
               <TableCell>{performance.duration}</TableCell>
             </TableRow>

@@ -7,14 +7,17 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TableRow
+  TableRow,
+  Grid2
 } from '@mui/material';
 
 const JsonDataView = ({ data }) => {
+  const filteredData = data.filter(company => company !== null && company !== undefined);
+
   return (
-    <Grid container spacing={3}>
+    <Grid2 container spacing={3}>
       {data.map((company) => (
-        <Grid item xs={12} key={company.id}>
+        <Grid2 item xs={12} key={company.id}>
           <Card>
             <CardContent>
               <Typography variant="h5" gutterBottom>
@@ -62,7 +65,7 @@ const JsonDataView = ({ data }) => {
                   {company.performance.map((perf) => (
                     <TableRow key={perf.quarter}>
                       <TableCell>{perf.quarter}</TableCell>
-                      <TableCell>${perf.revenue.toLocaleString()}</TableCell>
+                      <TableCell>${perf.revenue}</TableCell>
                       <TableCell>{perf.profit_margin}%</TableCell>
                     </TableRow>
                   ))}
@@ -70,9 +73,9 @@ const JsonDataView = ({ data }) => {
               </Table>
             </CardContent>
           </Card>
-        </Grid>
+        </Grid2>
       ))}
-    </Grid>
+    </Grid2>
   );
 };
 
