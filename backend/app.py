@@ -12,6 +12,7 @@ from routes.quarterly_performance_routes import quarterly_performance_blueprint,
 from services.pdf_loader_service import PDFLoaderService
 from routes.overall_routes import overall_blueprint, OverallController
 import json
+from flask_cors import CORS
 
 def create_app(config_name='default'):
     app = Flask(__name__)
