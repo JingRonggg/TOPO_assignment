@@ -15,6 +15,9 @@ class DataLoaderService:
                 raise ValueError("Invalid data format: Expected dict with 'companies' key")
 
             for company_data in data['companies']:
+                if any(value is None for value in company_data.values()):
+                    continue
+                
                 company = self._create_company(company_data)
                 if 'employees' in company_data:
                     self._create_employees(company_data['employees'], company.id)
