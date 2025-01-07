@@ -29,7 +29,7 @@ class CompanyPerformance(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     company_id = db.Column(db.Integer, db.ForeignKey('companies.id'), nullable=False)
-    quarter = db.Column(db.String(10), nullable=False)  # e.g., "2023_Q1"
+    quarter = db.Column(db.String(10), nullable=False)
     revenue = db.Column(db.Float)
     profit_margin = db.Column(db.Float)
 
@@ -42,5 +42,19 @@ class MemberActivity(db.Model):
     membership_type = db.Column(db.String(50), nullable=False)
     activity = db.Column(db.String(100), nullable=False)
     revenue = db.Column(db.Float)
-    duration = db.Column(db.Integer)  # in minutes
+    duration = db.Column(db.Integer)
     location = db.Column(db.String(100))
+
+class QuarterlyPerformance(db.Model):
+    __tablename__ = 'quarterly_performance'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.Integer, nullable=False)
+    quarter = db.Column(db.String, nullable=False)
+    revenue = db.Column(db.Float, nullable=False)
+    memberships_sold = db.Column(db.Integer, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)
+    
+    __table_args__ = (
+        db.UniqueConstraint('year', 'quarter', name='unique_year_quarter'),
+    )
