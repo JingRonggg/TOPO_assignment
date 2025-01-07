@@ -58,3 +58,36 @@ class QuarterlyPerformance(db.Model):
     __table_args__ = (
         db.UniqueConstraint('year', 'quarter', name='unique_year_quarter'),
     )
+
+class AnnualSummary(db.Model):
+    __tablename__ = 'annual_summary'
+
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.Integer, nullable=False)
+    total_revenue = db.Column(db.Integer, nullable=False)
+    total_membership_sold = db.Column(db.Integer, nullable=False)
+    top_location = db.Column(db.String, nullable=False)
+
+class QuaterlyMetrics(db.Model):
+    __tablename__ = 'quaterly_metrics'
+
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.Integer, nullable=False)
+    quarter = db.Column(db.String, nullable=False)
+    revenue = db.Column(db.Float, nullable=False)
+    memberships_sold = db.Column(db.Integer, nullable=False)
+    duration = db.Column(db.Integer, nullable=False)
+    
+    __table_args__ = (
+        db.UniqueConstraint('year', 'quarter', name='unique_year_quarter'),
+    )
+
+class RevenueByActivity(db.Model):
+    __tablename__ = 'revenue_by_activity'
+
+    id = db.Column(db.Integer, primary_key=True)
+    gym = db.Column(db.Float)
+    pool = db.Column(db.Float)
+    tennis_court = db.Column(db.Float)
+    personal_training = db.Column(db.Float)
+    others = db.Column(db.Float)
