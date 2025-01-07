@@ -10,6 +10,7 @@ from routes.member_activity_routes import member_activity_blueprint, MemberActiv
 from repositories.quarterly_performance_repository import QuarterlyPerformanceRepository
 from routes.quarterly_performance_routes import quarterly_performance_blueprint, QuarterlyPerformanceController
 from services.pdf_loader_service import PDFLoaderService
+from routes.overall_routes import overall_blueprint, OverallController
 import json
 
 def create_app(config_name='default'):
@@ -38,9 +39,14 @@ def create_app(config_name='default'):
         quarterly_performance_controller = QuarterlyPerformanceController(quarterly_performance_repository)
         quarterly_performance_controller.register_routes(quarterly_performance_blueprint)
         
+        overall_controller = OverallController(company_repository, member_activity_repository, quarterly_performance_repository)
+        overall_controller.register_routes(overall_blueprint)
+
         app.register_blueprint(company_blueprint, url_prefix='/api/companies')
         app.register_blueprint(member_activity_blueprint, url_prefix='/api/activities')
         app.register_blueprint(quarterly_performance_blueprint, url_prefix='/api/quarterly-performance')
+        app.register_blueprint(overall_blueprint, url_prefix='/api/data')
+        
         try:
             with open('datasets/dataset1.json', 'r') as file:
                 data = json.load(file)
