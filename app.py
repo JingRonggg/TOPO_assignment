@@ -7,6 +7,9 @@ from services.csv_loader_service import CSVLoaderService
 from routes.company_routes import company_blueprint, CompanyController
 from repositories.member_activity_repository import MemberActivityRepository
 from routes.member_activity_routes import member_activity_blueprint, MemberActivityController
+from repositories.quarterly_performance_repository import QuarterlyPerformanceRepository
+from routes.quarterly_performance_routes import quarterly_performance_blueprint, QuarterlyPerformanceController
+from services.pdf_loader_service import PDFLoaderService
 import json
 
 def create_app(config_name='default'):
@@ -19,20 +22,25 @@ def create_app(config_name='default'):
         db.create_all()
         
         company_repository = CompanyRepository(db)
+        member_activity_repository = MemberActivityRepository(db)
+        quarterly_performance_repository = QuarterlyPerformanceRepository(db)
         
         data_loader_service = DataLoaderService(company_repository, db)
         csv_loader_service = CSVLoaderService(db)
+        pdf_loader_service = PDFLoaderService(quarterly_performance_repository, db)
         
         company_controller = CompanyController(company_repository)
         company_controller.register_routes(company_blueprint)
         
-        member_activity_repository = MemberActivityRepository(db)
         member_activity_controller = MemberActivityController(member_activity_repository)
         member_activity_controller.register_routes(member_activity_blueprint)
         
+        quarterly_performance_controller = QuarterlyPerformanceController(quarterly_performance_repository)
+        quarterly_performance_controller.register_routes(quarterly_performance_blueprint)
+        
         app.register_blueprint(company_blueprint, url_prefix='/api/companies')
         app.register_blueprint(member_activity_blueprint, url_prefix='/api/activities')
-        
+        app.register_blueprint(quarterly_performance_blueprint, url_prefix='/api/quarterly-performance')
         try:
             with open('datasets/dataset1.json', 'r') as file:
                 data = json.load(file)
@@ -48,6 +56,13 @@ def create_app(config_name='default'):
             app.logger.warning('CSV dataset not found')
         except Exception as e:
             app.logger.error(f'Error loading CSV data: {str(e)}')
+
+        try:
+            pdf_loader_service.load_pdf_data('datasets/dataset3.pdf')
+        except FileNotFoundError:
+            app.logger.warning('PDF dataset not found')
+        except Exception as e:
+            app.logger.error(f'Error loading PDF data: {str(e)}')
 
     return app
 
