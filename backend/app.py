@@ -1,16 +1,16 @@
 from flask import Flask
-from models import db
-from config import config
-from repositories.company_repository import CompanyRepository
-from services.data_loader_service import DataLoaderService
-from services.csv_loader_service import CSVLoaderService
-from routes.company_routes import company_blueprint, CompanyController
-from repositories.member_activity_repository import MemberActivityRepository
-from routes.member_activity_routes import member_activity_blueprint, MemberActivityController
-from repositories.quarterly_performance_repository import QuarterlyPerformanceRepository
-from routes.quarterly_performance_routes import quarterly_performance_blueprint, QuarterlyPerformanceController
-from services.pdf_loader_service import PDFLoaderService
-from routes.overall_routes import overall_blueprint, OverallController
+from .models import db
+from .config import config
+from .repositories.company_repository import CompanyRepository
+from .services.data_loader_service import DataLoaderService
+from .services.csv_loader_service import CSVLoaderService
+from .routes.company_routes import company_blueprint, CompanyController
+from .repositories.member_activity_repository import MemberActivityRepository
+from .routes.member_activity_routes import member_activity_blueprint, MemberActivityController
+from .repositories.quarterly_performance_repository import QuarterlyPerformanceRepository
+from .routes.quarterly_performance_routes import quarterly_performance_blueprint, QuarterlyPerformanceController
+from .services.pdf_loader_service import PDFLoaderService
+from .routes.overall_routes import overall_blueprint, OverallController
 import json
 from flask_cors import CORS
 

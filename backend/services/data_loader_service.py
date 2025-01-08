@@ -1,5 +1,5 @@
 from datetime import datetime
-from models import Company, Employee, CompanyPerformance
+from ..models import Company, Employee, CompanyPerformance
 from sqlalchemy.exc import IntegrityError
 
 class DataLoaderService:

@@ -1,5 +1,5 @@
 import PyPDF2
-from models import QuarterlyPerformance
+from ..models import QuarterlyPerformance
 
 class PDFLoaderService:
     def __init__(self, quarterly_performance_repository, db):

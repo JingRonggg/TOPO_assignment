@@ -31,6 +31,7 @@ class OverallController:
             data.append(self._get_json_data())
             data.append(self._get_csv_data())
             data.append(self._get_pdf_data())
+            print(data)
 
             return jsonify(data), HTTPStatus.OK
         except:
@@ -38,6 +39,7 @@ class OverallController:
 
     def _get_json_data(self):
         companies = self.company_repository.get_all()
+        print(companies)
         data = [{
             'id': c.id,
             'name': c.name,

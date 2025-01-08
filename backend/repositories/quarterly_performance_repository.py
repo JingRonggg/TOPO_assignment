@@ -1,5 +1,5 @@
 from .base_repository import BaseRepository
-from models import QuarterlyPerformance
+from ..models import QuarterlyPerformance
 
 class QuarterlyPerformanceRepository(BaseRepository):
     def get_all(self):

@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Tabs, Tab, CircularProgress, Alert } from '@mui/material';
-import JsonDataView from './DataViews/JsonDataView';
-import CsvDataView from './DataViews/CsvDataView';
-import PdfDataView from './DataViews/PdfDataView';
+import { Pie } from 'react-chartjs-2';
+import JsonDataView from './TableViews/JsonDataView';
+import CsvDataView from './TableViews/CsvDataView';
+import PdfDataView from './TableViews/PdfDataView';
+import getChartData from './ChartViews/JsonChartData';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend
+);
 
 const endpoints = {
   json: 'http://127.0.0.1:5000/api/data/json',
@@ -43,6 +52,8 @@ const Dashboard = () => {
   if (loading) return <CircularProgress />;
   if (error) return <Alert severity="error">{error}</Alert>;
 
+  const pieData = jsonData ? getChartData(jsonData).pieData : {};
+
   return (
     <Box sx={{ width: '100%', padding: 3 }}>
       <Tabs value={activeTab} onChange={(_, newValue) => setActiveTab(newValue)} >
@@ -50,10 +61,13 @@ const Dashboard = () => {
         <Tab label="Member Activities (CSV)" />
         <Tab label="Quarterly Performance (PDF)" />
       </Tabs>
-
       {activeTab === 0 && <JsonDataView data={jsonData} />}
       {activeTab === 1 && <CsvDataView data={csvData} />}
       {activeTab === 2 && <PdfDataView data={pdfData} />}
+      <div>
+        <h2>Employee Roles Distribution (Pie Chart)</h2>
+        <Pie data={pieData} />
+      </div>
     </Box>
   );
 };

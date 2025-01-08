@@ -1,6 +1,6 @@
 import csv
 from datetime import datetime
-from models import db, MemberActivity
+from ..models import db, MemberActivity
 
 class CSVLoaderService:
     def __init__(self, db):
