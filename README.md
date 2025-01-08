@@ -31,6 +31,15 @@ git clone https://github.com/JingRonggg/TOPO_assignment.git
 cd TOPO_assignment
 ```
 
+### Docker setup (for easier running of the app)
+1. Have docker installed
+2. Open up docker application
+3. Run
+   ```bash
+   docker-compose up --build
+   ```
+4. Frontend is hosted on http://localhost:5173/
+5. Backend is hosted on http://localhost:5000/
 ### Backend Setup
 1. Navigate to the backend directory:
    ```bash
@@ -105,6 +114,3 @@ cd TOPO_assignment
 4. Debugging various bugs and learning new tools involved extensive research and assistance (e.g., from ChatGPT).
 
 ---
-
-## Improvements
-1. **Dockerise the Project**: Containerizing the app will make it platform-independent, simplifying setup and deployment.
