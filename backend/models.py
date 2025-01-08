@@ -58,3 +58,20 @@ class QuarterlyPerformance(db.Model):
     __table_args__ = (
         db.UniqueConstraint('year', 'quarter', name='unique_year_quarter'),
     )
+
+class KeyHighlights(db.Model):
+    __tablename__ = 'key_highlights'
+
+    id = db.Column(db.Integer, primary_key=True)
+    total_revenue = db.Column(db.Integer, nullable=False)
+    membership_sold = db.Column(db.Integer, nullable=False)
+    top_location = db.Column(db.String, nullable=False)
+
+class RevenueDistribution(db.Model):
+    __tablename__ = 'revenue_distribution'
+
+    id = db.Column(db.Integer, primary_key=True)
+    gym = db.Column(db.Float, nullable=False)
+    pool = db.Column(db.Float, nullable=False)
+    tennis_court = db.Column(db.Float, nullable=False)
+    personal_training = db.Column(db.Float, nullable=False)
