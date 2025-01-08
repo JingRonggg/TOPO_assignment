@@ -108,9 +108,7 @@ cd TOPO_assignment
 3. The `pptx` dataset's structure was assumed fixed for string manipulation.
 
 ### Challenges
-1. Extracting data from `pptx` files required learning new parsing techniques.
+1. Extracting data from `pptx` files required learning new parsing techniques (Using python-pptx).
 2. Limited experience with frontend development posed challenges in implementing UI components like charts.
-3. Filtering data on the frontend was non-trivial, especially while ensuring minimal API calls to the backend.
-4. Debugging various bugs and learning new tools involved extensive research and assistance (e.g., from ChatGPT).
 
 ---
