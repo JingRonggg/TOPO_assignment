@@ -1,84 +1,110 @@
-# TOPO_assignment
-### Overview
-Backend uses Flask Framework to develop
-Frontend uses React with Vite
+# TOPO Assignment
 
-When building the app, there were a lot of considerations that I had to do. One example was that I wanted to use SpringBoot for the backend as SpringBoot forces design patterns such as factory design pattern with strategy method. However, after developing with SpringBoot, I realise that it was not as fast as I thought, and I had to make the decision to switch over to Flask to develop the backend. 
+## Overview
+This project implements a full-stack application with the following tech stack:
+- **Backend**: Flask Framework
+- **Frontend**: React with Vite
+- **Database**: SQLite
 
-I attempted to follow the model view controller (MVC) where the data is ingested in from the services and stored in the repositories. The routes folder contains all the controllers and endpoints. While developing, I have the habit of making CRUD endpoints for each controller to test while developing, hence why I did not delete those redundant endpoints. 
+### Approach
+The initial backend development began with Spring Boot, chosen for its design-pattern enforcement (e.g., factory design pattern with strategy method). However, it was later switched to Flask for better performance and simplicity. The backend adheres to the Model-View-Controller (MVC) design pattern:
+- **Models**: Data ingestion is handled by services and stored in repositories.
+- **Controllers**: Contain endpoints and route logic. CRUD endpoints are included for testing purposes.
 
-As for the data cleaning, I noticed that there were null values, hence I ignored those data points instead of mocking a random value for it. Moreover, I did notice that all the datasets were linked to the company FitPro, and in the dataset4.pptx, I fully ignored slide 2 as the data was repeated inside dataset2.csv.
+Data filtering is implemented on the frontend to reduce backend API calls, optimizing system performance. This trade-off aligns with scalability concerns, especially for large applications. For such cases, GraphQL may be a preferable alternative to REST APIs.
 
-The entry point of the backend will be backend/app.py.
+The frontend features a **table**, a **pie chart** and a **line chart** to represent data visually, ensuring an interactive and informative user experience. Feel free to interact with the charts
 
-Filtering of data is done on the frontend as I do not want to have too many API calls to the backend
-Having too many API calls to the backend would bottleneck the system in a large applications, moreover, if there are a lot of filtering to be done with the data itself, perhaps it would be better to use GraphQL instead of REST API
+**Key considerations:**
+- Null values in the datasets were excluded instead of being mocked.
+- Duplicated data (e.g., `dataset4.pptx` slide 2) was ignored if it was already present in `dataset2.csv`.
 
-On the frontend side, I have made up a table and a pie chart to represent the data required. 
-### Setting Up the Environment
-1. Clone the Repository
+The backend entry point is located in `backend/app.py`.
 
-```
+---
+
+## Setup Instructions
+
+### Clone the Repository
+```bash
 git clone https://github.com/JingRonggg/TOPO_assignment.git
-```
-2. Enter backend directory
-```
-cd cd .\backend\
-```
-2. Create a Virtual Environment
-
-```
-python3 -m venv venv
-```
-3. Activate the Virtual Environment
-```
-venv/Scripts/activate
-```
-4. Install Required Packages
-```
-pip install -r requirements.txt
-```
-5. Run the app
-```
-flask --app app --debug run
-```
-6. Using another terminal, Go back to root directory (go to TOPO_assignment directory)
-```
-cd ..
-```
-7. Enter frontend directory
-```
-cd .\frontend\
-```
-8. Install node packages
-```
-npm install
-```
-9. Run frontend
-```
-npm run dev
+cd TOPO_assignment
 ```
 
-### To run the tests
-1. cd into backend
-``` 
-cd ./backend/
-```
-2. activate venv
-```
-venv/scripts/activate
-```
-3. run pytests
-```
-pytest -v
-```
+### Backend Setup
+1. Navigate to the backend directory:
+   ```bash
+   cd ./backend
+   ```
+2. Create a virtual environment:
+   ```bash
+   python3 -m venv venv
+   ```
+3. Activate the virtual environment:
+   ```bash
+   venv/Scripts/activate  # For Windows
+   source venv/bin/activate  # For macOS/Linux
+   ```
+4. Install required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+5. Create a `.env` file:
+   - Follow the structure in `example.env`.
+   - Update the database path: `sqlite:///database.db`.
+6. Run the Flask app:
+   ```bash
+   flask --app app --debug run
+   ```
 
-### Assumptions and Challenges
-#### Assumptions
-1. I assumed that the null data were wrong data and excluded it from the data processing
-2. I assumed that the pptx will not change in terms of data, I extracted it with some string manipulation
-#### Challenges
-1. Figuring out how to extract data from pptx
-2. Figuring out how to develop a half decent frontend as I do not have much experience with frontend development
-3. Figuring out how to filter the data on the frontend side as I want to call as little endpoints as possible.
-4. A lot of researching and chatgpt was required on my end as there were a lot of bugs I ran into while developing it.
+### Frontend Setup
+1. Open a new terminal and navigate back to the project root:
+   ```bash
+   cd ../frontend
+   ```
+2. Install required node packages:
+   ```bash
+   npm install
+   ```
+3. Run the frontend development server:
+   ```bash
+   npm run dev
+   ```
+
+---
+
+## Testing Instructions
+
+1. Navigate to the backend directory:
+   ```bash
+   cd ./backend
+   ```
+2. Activate the virtual environment:
+   ```bash
+   venv/Scripts/activate  # For Windows
+   source venv/bin/activate  # For macOS/Linux
+   ```
+3. Execute tests using Pytest:
+   ```bash
+   pytest -v
+   ```
+
+---
+
+## Assumptions and Challenges
+
+### Assumptions
+1. Null data points were considered erroneous and excluded during processing.
+2. Data in `dataset4.pptx` (slide 2) was assumed redundant, as it overlapped with `dataset2.csv`.
+3. The `pptx` dataset's structure was assumed fixed for string manipulation.
+
+### Challenges
+1. Extracting data from `pptx` files required learning new parsing techniques.
+2. Limited experience with frontend development posed challenges in implementing UI components like charts.
+3. Filtering data on the frontend was non-trivial, especially while ensuring minimal API calls to the backend.
+4. Debugging various bugs and learning new tools involved extensive research and assistance (e.g., from ChatGPT).
+
+---
+
+## Improvements
+1. **Dockerise the Project**: Containerizing the app will make it platform-independent, simplifying setup and deployment.

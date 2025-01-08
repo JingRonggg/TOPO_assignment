@@ -8,6 +8,7 @@ import PptxDataView from './TableViews/PptxDataView';
 import getChartData from './ChartViews/JsonChartData';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import RevenueDistributionChart from './ChartViews/RevenueDistributionChart';
+import LineChartComponent from './ChartViews/PdfLineChart';
 
 ChartJS.register(
   ArcElement,
@@ -76,7 +77,10 @@ const Dashboard = () => {
       <div style={{ width: '500px', height: '500px' }}>
         <h2>Employee Roles Distribution (Pie Chart)</h2>
         <Pie data={pieData} />
+        <h2>Revenue Distribution (Pie Chart)</h2>
         <RevenueDistributionChart data={revenueDistributionData} />
+        <h2>Quarterly Performance Over Time (Line Chart)</h2>
+        {jsonData && <LineChartComponent data={pdfData} />}
       </div>
     </Box>
   );
