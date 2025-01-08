@@ -24,7 +24,6 @@ const RevenueDistributionChart = ({ data }) => {
 
   return (
     <div>
-      <h2>Revenue Distribution (Pie Chart)</h2>
       <Pie data={revenueData} />
     </div>
   );

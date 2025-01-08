@@ -13,7 +13,6 @@ class CompanyController:
 
     def get_all_companies(self):
         companies = self.company_repository.get_all()
-        print(companies)
         return jsonify([{
             'id': c.id,
             'name': c.name,
