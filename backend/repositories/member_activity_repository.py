@@ -1,5 +1,5 @@
 from .base_repository import BaseRepository
-from models import MemberActivity
+from ..models import MemberActivity
 from datetime import datetime
 
 class MemberActivityRepository(BaseRepository):

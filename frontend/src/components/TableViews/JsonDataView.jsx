@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 
 const JsonDataView = ({ data }) => {
-  const filteredData = data.filter(company => company !== null && company !== undefined);
 
   return (
     <Grid2 container spacing={3}>

@@ -1,5 +1,5 @@
 from .base_repository import BaseRepository
-from models import Company
+from ..models import Company
 
 class CompanyRepository(BaseRepository):
     def get_all(self):

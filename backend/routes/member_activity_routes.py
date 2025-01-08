@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from http import HTTPStatus
 from datetime import datetime
-from models import MemberActivity
+from ..models import MemberActivity
 
 member_activity_blueprint = Blueprint('member_activities', __name__)
 
