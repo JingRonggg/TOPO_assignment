@@ -88,7 +88,7 @@ cd TOPO_assignment
    ```bash
    cd ./backend
    ```
-2. Activate the virtual environment:
+2. Activate the virtual environment (Assuming you have installed the env):
    ```bash
    venv/Scripts/activate  # For Windows
    source venv/bin/activate  # For macOS/Linux
